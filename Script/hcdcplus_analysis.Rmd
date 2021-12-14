@@ -1,5 +1,5 @@
 ---
-title: "HiCDCPlus Analysis Test"
+title: "An analysis of HiChIP data with HiCDCPlus"
 author: "Tim Myers"
 date: "12/14/2021"
 output: 
@@ -13,18 +13,47 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Description
 
-This is an analysis using the HiCDCPlus `R` package.  The input files used came from the output of a HiC-Pro analysis using its included sample data.  The input files are located in the /data folder.
+This is a HiChIP analysis using the HiCDCPlus `R` package.  The input files used came from the output of a HiC-Pro analysis using its included sample data.  The input files are located in the /data folder.
 
-```{r cars}
-summary(cars)
+Here I adapt the workflow outlined on the HiCDCPlus github page:
+(https://github.com/mervesa/HiCDCPlus#ice-normalization-using-hitc-ice).
+
+I identify significant interactions and differential interactions.
+
+
+
+## Finding significant interactions from HiChIP
+
+Load required libraries
+```{r sig-interactions, eval=TRUE}
+library(HiCDCPlus)
+library(BSgenome.Hsapiens.UCSC.hg19)
+library(DESeq2)
 ```
 
-## Including Plots
+
+# Including Plots
 
 You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
 plot(pressure)
+```
+
+# Generate Features
+```{r features, eval=TRUE}
+# define output directory path
+out_dir <- "/Output"
+
+# generate genomic features
+construct_features(output_path = paste0(out_dir,"/hg19_5kb_hindiii"),
+                   gen="Hsapiens",
+                   gen_ver="hg19",
+                   sig="AGCTT",
+                   bin_type="Bins-uniform",
+                   binsize=5000,
+                   chrs=c("chr21","chr22")
+                  )
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
