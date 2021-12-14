@@ -41,3 +41,8 @@ vignettes/*.pdf
 
 # Mac OSX
 .DS_Store
+
+# produced Rmarkdown files
+Script/*.html
+Script/*.pdf
+
