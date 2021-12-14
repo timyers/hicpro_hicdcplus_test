@@ -1,6 +1,0 @@
-/usr/local/apps/hicpro/conda/envs/3.1.0/bin/python /usr/local/apps/hicpro/conda/envs/3.1.0/HiC-Pro_3.1.0/scripts/merge_statfiles.py -d bowtie_results/bwt2/dixon_2M/ -p *_R1*.mapstat -v > hic_results/stats/dixon_2M/dixon_2M_R1.mmapstat
-/usr/local/apps/hicpro/conda/envs/3.1.0/bin/python /usr/local/apps/hicpro/conda/envs/3.1.0/HiC-Pro_3.1.0/scripts/merge_statfiles.py -d bowtie_results/bwt2/dixon_2M/ -p *_R2*.mapstat -v > hic_results/stats/dixon_2M/dixon_2M_R2.mmapstat
-Merge pairstat files ...
-/usr/local/apps/hicpro/conda/envs/3.1.0/bin/python /usr/local/apps/hicpro/conda/envs/3.1.0/HiC-Pro_3.1.0/scripts/merge_statfiles.py -d bowtie_results/bwt2/dixon_2M/ -p "*.pairstat" -v> hic_results/stats/dixon_2M/dixon_2M.mpairstat
-Merge RSstat files ...
-/usr/local/apps/hicpro/conda/envs/3.1.0/bin/python /usr/local/apps/hicpro/conda/envs/3.1.0/HiC-Pro_3.1.0/scripts/merge_statfiles.py -d hic_results/data//dixon_2M/ -p "*.RSstat" -v> hic_results/stats/dixon_2M/dixon_2M.mRSstat

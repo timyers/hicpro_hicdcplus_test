@@ -1,9 +1,0 @@
-## merge_statfiles.py
-## dir= bowtie_results/bwt2/dixon_2M/
-## pattern= *_R1*.mapstat
-## Merging 1 files
-## Use /gpfs/gsfs8/users/myersta/hicpro/test/output_batch/bowtie_results/bwt2/dixon_2M/SRR400264_00_R1_genome.mapstat as template
-total_R1	250000
-mapped_R1	228074
-global_R1	218185
-local_R1	9889
