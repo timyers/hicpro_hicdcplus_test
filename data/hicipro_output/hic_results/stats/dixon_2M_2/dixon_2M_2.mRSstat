@@ -1,0 +1,16 @@
+## merge_statfiles.py
+## dir= hic_results/data//dixon_2M_2/
+## pattern= *.RSstat
+## Merging 1 files
+## Use /gpfs/gsfs8/users/myersta/hicpro/test/output_batch/hic_results/data/dixon_2M_2/SRR400264_01_genome.bwt2pairs.RSstat as template
+Valid_interaction_pairs	72262
+Valid_interaction_pairs_FF	17980
+Valid_interaction_pairs_RR	18041
+Valid_interaction_pairs_RF	17982
+Valid_interaction_pairs_FR	18259
+Dangling_end_pairs	54748
+Religation_pairs	5251
+Self_Cycle_pairs	837
+Single-end_pairs	0
+Filtered_pairs	14706
+Dumped_pairs	990
