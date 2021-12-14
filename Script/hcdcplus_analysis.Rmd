@@ -1,0 +1,30 @@
+---
+title: "HiCDCPlus Analysis Test"
+author: "Tim Myers"
+date: "12/14/2021"
+output: 
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an analysis using the HiCDCPlus `R` package.  The input files used came from the output of a HiC-Pro analysis using its included sample data.
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
