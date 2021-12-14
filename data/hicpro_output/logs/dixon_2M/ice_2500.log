@@ -1,0 +1,6 @@
+/usr/local/apps/hicpro/conda/envs/3.1.0/bin/python /usr/local/apps/hicpro/conda/envs/3.1.0/HiC-Pro_3.1.0/scripts/ice --results_filename hic_results/matrix/dixon_2M/iced/2500/dixon_2M_2500_iced.matrix --filter_low_counts_perc 0.02 --filter_high_counts_perc 0 --max_iter 100 --eps 0.1 --remove-all-zeros-loci --output-bias 1 hic_results/matrix//dixon_2M/raw/2500/dixon_2M_2500.matrix
+/usr/local/apps/hicpro/conda/envs/3.1.0/HiC-Pro_3.1.0/scripts/ice:65: SyntaxWarning: "is" with a literal. Did you mean "=="?
+  if "--filtering_perc" is None and "--filter_low_counts_perc" not in sys.argv:
+/usr/local/apps/hicpro/conda/envs/3.1.0/lib/python3.8/site-packages/iced/normalization/_ca_utils.py:8: UserWarning: The API of this module is likely to change. Use only for testing purposes
+  warnings.warn(
+Assuming the file is 1-based. If this is not the desired option, set option --base to 0

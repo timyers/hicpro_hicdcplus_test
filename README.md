@@ -2,4 +2,4 @@
 My first test analysis of HiC-pro output results using HiCDCPlus
 
 # Data
-Contains out put results data after analyzing HiCPro sample files.
+Contains output results data after analyzing HiCPro sample files.
