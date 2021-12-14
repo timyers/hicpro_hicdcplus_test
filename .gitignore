@@ -42,7 +42,7 @@ vignettes/*.pdf
 # Mac OSX
 .DS_Store
 
-# produced Rmarkdown files
+# Output files from R markdown
 Script/*.html
 Script/*.pdf
 
