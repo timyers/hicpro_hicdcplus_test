@@ -11,9 +11,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Description
 
-This is an analysis using the HiCDCPlus `R` package.  The input files used came from the output of a HiC-Pro analysis using its included sample data.
+This is an analysis using the HiCDCPlus `R` package.  The input files used came from the output of a HiC-Pro analysis using its included sample data.  The input files are located in the /data folder.
 
 ```{r cars}
 summary(cars)
