@@ -25,34 +25,26 @@ I identify significant interactions and differential interactions.
 ## Finding significant interactions from HiChIP
 
 Load required libraries
-```{r sig-interactions, eval=TRUE}
+```{r load-lib, eval=TRUE}
 library(HiCDCPlus)
 library(BSgenome.Hsapiens.UCSC.hg19)
 library(DESeq2)
-```
-
-
-# Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+library(HiTC)
 ```
 
 # Generate Features
 ```{r features, eval=TRUE}
 # define output directory path
-out_dir <- "/Output"
+out_dir <- "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/Output"
 
 # generate genomic features
-construct_features(output_path = paste0(out_dir,"/hg19_5kb_hindiii"),
-                   gen="Hsapiens",
-                   gen_ver="hg19",
-                   sig="AGCTT",
-                   bin_type="Bins-uniform",
-                   binsize=5000,
-                   chrs=c("chr21","chr22")
+construct_features(output_path = paste0(out_dir, "/hg19_5kb_hindiii"),
+                   gen = "Hsapiens",
+                   gen_ver = "hg19",
+                   sig = "AGCTT",
+                   bin_type = "Bins-uniform",
+                   binsize = 5000,
+                   chrs = c("chr21","chr22")
                   )
 ```
 
