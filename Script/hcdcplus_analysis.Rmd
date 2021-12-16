@@ -29,7 +29,7 @@ Load required libraries
 library(HiCDCPlus)
 library(BSgenome.Hsapiens.UCSC.hg19)
 library(DESeq2)
-library(HiTC)
+# library(HiTC)
 ```
 
 # Generate Features
@@ -49,15 +49,48 @@ construct_features(output_path = paste0(out_dir, "/hg19_5kb_hindiii"),
 ```
 
 Generate `gi_list` to store counts and features.
-```{r gen-gi-list, eval = TRUE}
-# generate gi_list instance
-gi_list <- generate_bintolen_gi_list(
-             bintolen_path = paste0(paste0(out_dir, "/hg19_5kb_hindiii"))
-            )
+```{r gen-gi-list, eval = FALSE}
 
-# add HiCPro .allValidPairs
-### define path to .allValidPairs files
+# add HiCPro .allValidPairs counts
+### define path to .allValidPairs files ###
 
-gi_list <- add_hic_counts(gi_list, hic_path = hicfile_path)
+indexfile<-data.frame()
+
+allValidPairs_paths <- c(
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M",
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M_2"
+     )
+      
+for(allValidPairs_path in allValidPairs_paths){
+  output_path <- paste0(out_dir,'/',
+                      gsub("^(.*[\\/])", 
+                           "",
+                           gsub('.hic','.txt.gz',allValidPairs_path)
+                          )
+                     )
+  # generate gi_list instance
+  gi_list <- generate_bintolen_gi_list(bintolen_path = paste0(outdir,"/hg19_5kb_hindiii_bintolen.txt.gz"),
+                                       gen = "Hsapiens", gen_ver="hg19"
+                                      )
+  gi_list <- add_hic_counts(gi_list, hic_path = allValidPairs_path)
+
+  #expand features for modeling
+  gi_list <- expand_1D_features(gi_list)
+
+  #run HiC-DC+ on 2 cores
+  set.seed(1010) # HiC-DC downsamples rows for modeling
+  
+  gi_list <- HiCDCPlus(gi_list,ssize=0.1)
+  for (i in seq(length(gi_list))){
+    indexfile<-unique(rbind(indexfile,
+                            as.data.frame(gi_list[[i]][gi_list[[i]]$qvalue<=0.05])[c('seqnames1',
+                                                                                     'start1','start2')]
+                            )
+                      )
+  }
+
+  # write results to a text file
+  gi_list_write(gi_list, fname = output_path)
+}
 
 ```
