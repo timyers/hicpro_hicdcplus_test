@@ -20,8 +20,6 @@ Here I adapt the workflow outlined on the HiCDCPlus github page:
 
 I identify significant interactions and differential interactions.
 
-
-
 ## Finding significant interactions from HiChIP
 
 Load required libraries
@@ -58,10 +56,10 @@ indexfile<-data.frame()
 
 allValidPairsfile_paths <- c(
         # load each twice to simulate biological repleates required for differential interaction analysis
-      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M/dixon_2M.allValidPairs",
-      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M/dixon_2M.allValidPairs",
-      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M_2/dixon_2M_2.allValidPairs",
-      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M_2/dixon_2M_2.allValidPairs"
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M/dixon_2M_rep1.allValidPairs",
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M/dixon_2M_rep2.allValidPairs",
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M_2/dixon_2M_2_rep1.allValidPairs",
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M_2/dixon_2M_2_rep2.allValidPairs"
      )
       
 for(allValidPairsfile_path in allValidPairsfile_paths){
