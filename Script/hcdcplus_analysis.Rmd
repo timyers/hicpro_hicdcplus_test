@@ -56,23 +56,23 @@ Generate `gi_list` to store counts and features.
 
 indexfile<-data.frame()
 
-allValidPairs_paths <- c(
-      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M",
-      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M_2"
+allValidPairsfile_paths <- c(
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M/dixon_2M.allValidPairs",
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M_2/dixon_2M_2.allValidPairs"
      )
       
-for(allValidPairs_path in allValidPairs_paths){
+for(allValidPairsfile_path in allValidPairsfile_paths){
   output_path <- paste0(out_dir,'/',
                         gsub("^(.*[\\/])", 
                              "",
-                             gsub('.hic', '.txt.gz', allValidPairs_path)
+                             gsub('.hic', '.txt.gz', allValidPairsfile_path)
                             )
                        )
   # generate gi_list instance
   gi_list <- generate_bintolen_gi_list(bintolen_path = paste0(out_dir,"/hg19_5kb_hindiii_bintolen.txt.gz"),
                                        gen = "Hsapiens", gen_ver="hg19"
                                       )
-  gi_list <- add_hic_counts(gi_list, hic_path = allValidPairs_path)
+  gi_list <- add_hicpro_allvalidpairs_counts(gi_list, allvalidpairs_path = allValidPairsfile_path)
 
   #expand features for modeling
   gi_list <- expand_1D_features(gi_list)
