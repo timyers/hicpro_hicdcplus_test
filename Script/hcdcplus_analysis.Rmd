@@ -74,7 +74,7 @@ for(allValidPairsfile_path in allValidPairsfile_paths){
                                       )
   gi_list <- add_hicpro_allvalidpairs_counts(gi_list, allvalidpairs_path = allValidPairsfile_path)
 
-  #expand features for modeling
+  # expand features for modeling
   gi_list <- expand_1D_features(gi_list)
 
   #run HiC-DC+ on 2 cores
@@ -84,7 +84,8 @@ for(allValidPairsfile_path in allValidPairsfile_paths){
   for (i in seq(length(gi_list))){
     indexfile<-unique(rbind(indexfile,
                             as.data.frame(gi_list[[i]][gi_list[[i]]$qvalue<=0.05])[c('seqnames1',
-                                                                                     'start1','start2')]
+                                                                                     'start1',
+                                                                                     'start2')]
                             )
                       )
   }
