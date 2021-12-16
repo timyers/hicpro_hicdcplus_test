@@ -63,11 +63,11 @@ allValidPairs_paths <- c(
       
 for(allValidPairs_path in allValidPairs_paths){
   output_path <- paste0(out_dir,'/',
-                      gsub("^(.*[\\/])", 
-                           "",
-                           gsub('.hic','.txt.gz',allValidPairs_path)
-                          )
-                     )
+                        gsub("^(.*[\\/])", 
+                             "",
+                             gsub('.hic', '.txt.gz', allValidPairs_path)
+                            )
+                       )
   # generate gi_list instance
   gi_list <- generate_bintolen_gi_list(bintolen_path = paste0(outdir,"/hg19_5kb_hindiii_bintolen.txt.gz"),
                                        gen = "Hsapiens", gen_ver="hg19"
