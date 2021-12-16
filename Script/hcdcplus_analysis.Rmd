@@ -69,7 +69,7 @@ for(allValidPairs_path in allValidPairs_paths){
                             )
                        )
   # generate gi_list instance
-  gi_list <- generate_bintolen_gi_list(bintolen_path = paste0(outdir,"/hg19_5kb_hindiii_bintolen.txt.gz"),
+  gi_list <- generate_bintolen_gi_list(bintolen_path = paste0(out_dir,"/hg19_5kb_hindiii_bintolen.txt.gz"),
                                        gen = "Hsapiens", gen_ver="hg19"
                                       )
   gi_list <- add_hic_counts(gi_list, hic_path = allValidPairs_path)
