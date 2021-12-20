@@ -55,7 +55,7 @@ Generate `gi_list` to store counts and features.
 indexfile<-data.frame()
 
 allValidPairsfile_paths <- c(
-        # load each twice to simulate biological repleates required for differential interaction analysis
+        # load each twice to simulate biological replicates required for differential interaction analysis
       "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M/dixon_2M_rep1.allValidPairs",
       "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M/dixon_2M_rep2.allValidPairs",
       "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results/data/dixon_2M_2/dixon_2M_2_rep1.allValidPairs",
