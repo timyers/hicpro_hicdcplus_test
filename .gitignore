@@ -46,3 +46,7 @@ vignettes/*.pdf
 Script/*.html
 Script/*.pdf
 
+# HiC-Pro data files
+*.allValidPairs
+
+
