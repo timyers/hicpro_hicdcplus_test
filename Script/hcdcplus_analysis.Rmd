@@ -41,7 +41,7 @@ construct_features(output_path = paste0(out_dir, "/hg19_5kb_hindiii"),
                    gen_ver = "hg19",
                    sig = "AGCTT",
                    bin_type = "Bins-uniform",
-                   binsize = 5000,
+                   binsize = 50000,
                    chrs = c("chr21","chr22")
                   )
 ```
@@ -122,7 +122,7 @@ hicdcdiff(input_paths = list(dixon_2M = c(paste0(out_dir, '/dixon_2M_rep1.txt.gz
           filter_file = paste0(out_dir,'/dixon_analysis_indices.txt.gz'),
           output_path = paste0(out_dir,'/dixon_diff_analysis/'),
           fitType = 'mean',
-          binsize = 5000,
+          binsize = 50000,
           diagnostics = TRUE
          )
 ```
