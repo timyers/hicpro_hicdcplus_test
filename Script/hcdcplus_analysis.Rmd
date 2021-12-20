@@ -66,7 +66,7 @@ for(allValidPairsfile_path in allValidPairsfile_paths){
   output_path <- paste0(out_dir,'/',
                         gsub("^(.*[\\/])", 
                              "",
-                             gsub('.hic', '.txt.gz', allValidPairsfile_path)
+                             gsub('.allValidPairs', '.txt.gz', allValidPairsfile_path)
                             )
                        )
   # generate gi_list instance
@@ -108,7 +108,22 @@ data.table::fwrite(indexfile,
                    paste0(out_dir,'/dixon_analysis_indices.txt.gz'),
                    sep='\t',row.names=FALSE,quote=FALSE)
 
+
 ```
 
 Next, get the union set of significant interactions and save it as the index file and then run `hicdcdiff`
+```{r get-union, eval = TRUE}
+
+# Differential analysis using modified DESeq2
+hicdcdiff(input_paths = list(dixon_2M = c(paste0(out_dir, '/dixon_2M_rep1.txt.gz'),
+                                          paste0(out_dir, '/dixon_2M_rep1.txt.gz')),
+                             dixon_2M_2 = c(paste0(out_dir, '/dixon_2M_2_rep1.txt.gz'),
+                                            paste0(out_dir, '/dixon_2M_2_rep2.txt.gz'))),
+          filter_file = paste0(out_dir,'/dixon_analysis_indices.txt.gz'),
+          output_path = paste0(out_dir,'/dixon_diff_analysis/'),
+          fitType = 'mean',
+          binsize = 5000,
+          diagnostics = TRUE
+         )
+```
 
