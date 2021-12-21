@@ -166,12 +166,6 @@
       "Source": "Bioconductor",
       "Hash": "38fa62900db4daf19f0e466e9b1a9da3"
     },
-    "HiTC": {
-      "Package": "HiTC",
-      "Version": "1.38.0",
-      "Source": "Bioconductor",
-      "Hash": "caa6e2d808b5ccd2d9e93ccf4d5af998"
-    },
     "Hmisc": {
       "Package": "Hmisc",
       "Version": "4.6-0",
