@@ -1,0 +1,42 @@
+R version 4.1.2 (2021-11-01)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Catalina 10.15.7
+
+Matrix products: default
+BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats4    stats     graphics  grDevices datasets  utils     methods   base     
+
+other attached packages:
+ [1] DESeq2_1.34.0                     SummarizedExperiment_1.24.0       Biobase_2.54.0                   
+ [4] MatrixGenerics_1.6.0              matrixStats_0.61.0                BSgenome.Hsapiens.UCSC.hg19_1.4.3
+ [7] BSgenome_1.62.0                   rtracklayer_1.54.0                Biostrings_2.62.0                
+[10] XVector_0.34.0                    GenomicRanges_1.46.1              GenomeInfoDb_1.30.0              
+[13] IRanges_2.28.0                    S4Vectors_0.32.3                  BiocGenerics_0.40.0              
+[16] HiCDCPlus_1.2.0                  
+
+loaded via a namespace (and not attached):
+ [1] httr_1.4.2               bit64_4.0.5              splines_4.1.2            R.utils_2.11.0          
+ [5] assertthat_0.2.1         BiocManager_1.30.16      blob_1.2.2               renv_0.14.0             
+ [9] GenomeInfoDbData_1.2.7   Rsamtools_2.10.0         yaml_2.2.1               pillar_1.6.4            
+[13] RSQLite_2.2.9            lattice_0.20-45          glue_1.5.1               digest_0.6.29           
+[17] RColorBrewer_1.1-2       colorspace_2.0-2         htmltools_0.5.2          Matrix_1.4-0            
+[21] R.oo_1.24.0              XML_3.99-0.8             pkgconfig_2.0.3          genefilter_1.76.0       
+[25] zlibbioc_1.40.0          purrr_0.3.4              xtable_1.8-4             scales_1.1.1            
+[29] BiocParallel_1.28.3      tibble_3.1.6             annotate_1.72.0          KEGGREST_1.34.0         
+[33] ggplot2_3.3.5            generics_0.1.1           ellipsis_0.3.2           cachem_1.0.6            
+[37] survival_3.2-13          magrittr_2.0.1           crayon_1.4.2             memoise_2.0.1           
+[41] evaluate_0.14            R.methodsS3_1.8.1        fansi_0.5.0              tools_4.1.2             
+[45] data.table_1.14.2        BiocIO_1.4.0             lifecycle_1.0.1          locfit_1.5-9.4          
+[49] munsell_0.5.0            DelayedArray_0.20.0      AnnotationDbi_1.56.2     compiler_4.1.2          
+[53] rlang_0.4.12             grid_4.1.2               RCurl_1.98-1.5           rstudioapi_0.13         
+[57] rjson_0.2.20             bitops_1.0-7             rmarkdown_2.11           gtable_0.3.0            
+[61] restfulr_0.0.13          DBI_1.1.1                R6_2.5.1                 GenomicAlignments_1.30.0
+[65] knitr_1.36               dplyr_1.0.7              fastmap_1.1.0            bit_4.0.4               
+[69] utf8_1.2.2               parallel_4.1.2           Rcpp_1.0.7               geneplotter_1.72.0      
+[73] png_0.1-7                vctrs_0.3.8              tidyselect_1.1.1         xfun_0.29               

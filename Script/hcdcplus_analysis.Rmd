@@ -23,7 +23,7 @@ I identify significant interactions and differential interactions.
 ## Finding significant interactions from HiChIP
 
 Load required libraries
-```{r load-lib, eval=TRUE}
+```{r load-lib, eval=TRUE, message=FALSE}
 library(HiCDCPlus)
 library(BSgenome.Hsapiens.UCSC.hg19)
 library(DESeq2)
@@ -125,5 +125,11 @@ hicdcdiff(input_paths = list(dixon_2M = c(paste0(out_dir, '/dixon_2M_rep1.txt.gz
           binsize = 50000,
           diagnostics = TRUE
          )
+```
+
+Analysis resulted in error and incomplete output files.  Error most likely due to the fact that the input files are not true biological replicates but copies to simulate replicates which found no differential interactions were found.
+
+```{r session, echo = TRUE}
+writeLines(capture.output(sessionInfo()), paste0(out_dir, '/sessionInfo.txt'))
 ```
 
