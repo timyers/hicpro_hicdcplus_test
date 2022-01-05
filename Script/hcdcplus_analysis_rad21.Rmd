@@ -60,22 +60,32 @@ allValidPairsfile_paths <- c(
      )
       
 for(allValidPairsfile_path in allValidPairsfile_paths){
-  output_path <- paste0(out_dir,'/',
-                        gsub("^(.*[\\/])", 
-                             "",
-                             gsub('.allValidPairs', '.txt.gz', allValidPairsfile_path)
+  
+  output_path_hic <- paste0(out_dir,'/',
+                            gsub("^(.*[\\/])", 
+                                 "",
+                                 gsub('.allValidPairs', '.hic', allValidPairsfile_path)
+                                )
                             )
-                       )
+  
+  output_path_results <- paste0(out_dir,'/',
+                                gsub("^(.*[\\/])", 
+                                     "",
+                                     gsub('.allValidPairs', '.txt.gz', allValidPairsfile_path)
+                                    )
+                             )
   # generate gi_list instance
   gi_list <- generate_bintolen_gi_list(bintolen_path = paste0(out_dir,"/hg19_50kb_dpnii_bintolen.txt.gz"),
                                        gen = "Hsapiens", gen_ver="hg19"
                                       )
+  
+  # add .allValidPairs counts
   gi_list <- add_hicpro_allvalidpairs_counts(gi_list, allvalidpairs_path = allValidPairsfile_path)
 
   # expand features for modeling
   gi_list <- expand_1D_features(gi_list)
 
-  # run HiC-DC+ on 2 cores
+  # run HiC-DC+
   set.seed(1010) # HiC-DC down samples rows for modeling
   
   gi_list <- HiCDCPlus(gi_list,ssize = 0.1)
@@ -88,8 +98,12 @@ for(allValidPairsfile_path in allValidPairsfile_paths){
                       )
   }
 
+  # write normalized counts (observed/expected) to a .hic file
+  hicdc2hic(gi_list, hicfile = output_path_hic,
+          mode='normcounts',gen_ver='hg19')
+  
   # write results to a text file
-  gi_list_write(gi_list, fname = output_path)
+  gi_list_write(gi_list, fname = output_path_results)
 }
 
 ```

@@ -73,6 +73,7 @@ for(allValidPairsfile_path in allValidPairsfile_paths){
   gi_list <- generate_bintolen_gi_list(bintolen_path = paste0(out_dir,"/hg19_5kb_hindiii_bintolen.txt.gz"),
                                        gen = "Hsapiens", gen_ver="hg19"
                                       )
+  # add .allValidPairs counts
   gi_list <- add_hicpro_allvalidpairs_counts(gi_list, allvalidpairs_path = allValidPairsfile_path)
 
   # expand features for modeling
@@ -91,6 +92,8 @@ for(allValidPairsfile_path in allValidPairsfile_paths){
                       )
   }
 
+  #write normalized counts (observed/expected) to a .hic file
+  
   # write results to a text file
   gi_list_write(gi_list, fname = output_path)
 }
