@@ -38,8 +38,8 @@ loaded via a namespace (and not attached):
  [81] bitops_1.0-7               evaluate_0.14              lattice_0.20-45            purrr_0.3.4                labeling_0.4.2            
  [86] htmlwidgets_1.5.4          GenomicAlignments_1.30.0   bit_4.0.4                  tidyselect_1.1.1           magrittr_2.0.1            
  [91] R6_2.5.1                   generics_0.1.1             Hmisc_4.6-0                DelayedArray_0.20.0        DBI_1.1.2                 
- [96] withr_2.4.3                pillar_1.6.4               foreign_0.8-81             survival_3.2-13            KEGGREST_1.34.0           
-[101] RCurl_1.98-1.5             nnet_7.3-16                tibble_3.1.6               crayon_1.4.2               utf8_1.2.2                
-[106] BiocFileCache_2.2.0        rmarkdown_2.11             jpeg_0.1-9                 progress_1.2.2             locfit_1.5-9.4            
-[111] grid_4.1.2                 data.table_1.14.2          blob_1.2.2                 digest_0.6.29              xtable_1.8-4              
-[116] tidyr_1.1.4                R.utils_2.11.0             munsell_0.5.0              Gviz_1.38.0               
+ [96] pillar_1.6.4               foreign_0.8-81             survival_3.2-13            KEGGREST_1.34.0            RCurl_1.98-1.5            
+[101] nnet_7.3-16                tibble_3.1.6               crayon_1.4.2               utf8_1.2.2                 BiocFileCache_2.2.0       
+[106] rmarkdown_2.11             jpeg_0.1-9                 progress_1.2.2             locfit_1.5-9.4             grid_4.1.2                
+[111] data.table_1.14.2          blob_1.2.2                 digest_0.6.29              xtable_1.8-4               tidyr_1.1.4               
+[116] R.utils_2.11.0             munsell_0.5.0              Gviz_1.38.0               
