@@ -1,0 +1,136 @@
+---
+title: "An analysis of HiChIP data from Lyu et al. with HiCDCPlus"
+author: "Tim Myers"
+date: "01/05/2022"
+output: 
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Description
+
+This is a HiChIP analysis using the HiCDCPlus `R` package.  The input files used came from the Lyu et al.(1) dataset containing HiChIP data derived from the immuno-precipitation of Rad21 in human embryonic stem cells (hESC) before and after heat shock.
+
+Here use the workflow outlined in Chapter 11: Analysis of HiChIP Data in "Hi-C Data Analysis"[(2)](https://link.springer.com/protocol/10.1007/978-1-0716-1390-0_4).  Specifically, I only performed the initial steps of mapping, filtering and merging of the .fastq from Lyu et al. using HiC-Pro.  Then, using the .allValidPairs output filesare used as input for the HiCDCPlus downstream analysis. 
+
+## Finding significant interactions from HiChIP
+
+Load required libraries
+```{r load-lib, eval=TRUE, message=FALSE}
+library(HiCDCPlus)
+library(BSgenome.Hsapiens.UCSC.hg19)
+library(DESeq2)
+# library(HiTC)
+```
+
+# Generate Features
+```{r features, eval=TRUE}
+# define output directory path
+out_dir <- "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/Output_rad21"
+
+# generate genomic features
+construct_features(output_path = paste0(out_dir, "/hg19_50kb_dpnii"),
+                   gen = "Hsapiens",
+                   gen_ver = "hg19",
+                   sig = "GATC", # DpnII enzyme, isoschizomer of MboI
+                   bin_type = "Bins-uniform",
+                   binsize = 50000,
+                   chrs = c("chr21","chr22")
+                  )
+```
+
+Generate `gi_list` to store counts and features.
+```{r gen-gi-list, eval = TRUE}
+
+# add HiCPro .allValidPairs counts
+### define path to .allValidPairs files ###
+
+indexfile<-data.frame()
+
+allValidPairsfile_paths <- c(
+        # load biological replicates for no treatment (NT) and heat-shock treated (HS)
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results_rad21/Rad21_HS_Rep1/Rad21_HS_Rep1.allValidPairs",
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results_rad21/Rad21_HS_Rep2/Rad21_HS_Rep2.allValidPairs",
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results_rad21/Rad21_NT_Rep1/Rad21_NT_Rep1.allValidPairs",
+      "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/data/hicpro_output/hic_results_rad21/Rad21_NT_Rep2/Rad21_NT_Rep2.allValidPairs"
+     )
+      
+for(allValidPairsfile_path in allValidPairsfile_paths){
+  output_path <- paste0(out_dir,'/',
+                        gsub("^(.*[\\/])", 
+                             "",
+                             gsub('.allValidPairs', '.txt.gz', allValidPairsfile_path)
+                            )
+                       )
+  # generate gi_list instance
+  gi_list <- generate_bintolen_gi_list(bintolen_path = paste0(out_dir,"/hg19_50kb_dpnii_bintolen.txt.gz"),
+                                       gen = "Hsapiens", gen_ver="hg19"
+                                      )
+  gi_list <- add_hicpro_allvalidpairs_counts(gi_list, allvalidpairs_path = allValidPairsfile_path)
+
+  # expand features for modeling
+  gi_list <- expand_1D_features(gi_list)
+
+  # run HiC-DC+ on 2 cores
+  set.seed(1010) # HiC-DC down samples rows for modeling
+  
+  gi_list <- HiCDCPlus(gi_list,ssize = 0.1)
+  for (i in seq(length(gi_list))){
+    indexfile<-unique(rbind(indexfile,
+                            as.data.frame(gi_list[[i]][gi_list[[i]]$qvalue<=0.05])[c('seqnames1',
+                                                                                     'start1',
+                                                                                     'start2')]
+                            )
+                      )
+  }
+
+  # write results to a text file
+  gi_list_write(gi_list, fname = output_path)
+}
+
+```
+
+Save the index file - union of significants at 50kb
+``` {r save-index, eval = TRUE}
+
+# change column names
+colnames(indexfile) <-c ('chr', 'startI', 'startJ')
+
+# write index file
+data.table::fwrite(indexfile,
+                   paste0(out_dir,'/rad21_analysis_indices.txt.gz'),
+                   sep='\t',row.names=FALSE,quote=FALSE)
+
+
+```
+
+Next, get the union set of significant interactions and save it as the index file and then run `hicdcdiff`
+```{r get-union, eval = TRUE}
+
+# Differential analysis using modified DESeq2
+hicdcdiff(input_paths = list(rad21_HS = c(paste0(out_dir, '/Rad21_HS_Rep1.txt.gz'),
+                                          paste0(out_dir, '/Rad21_HS_Rep2.txt.gz')),
+                             rad21_NT = c(paste0(out_dir, '/Rad21_NT_Rep1.txt.gz'),
+                                          paste0(out_dir, '/Rad21_NT_Rep2.txt.gz'))),
+          filter_file = paste0(out_dir,'/rad21_analysis_indices.txt.gz'),
+          output_path = paste0(out_dir,'/rad21_diff_analysis/'),
+          fitType = 'mean',
+          binsize = 50000,
+          diagnostics = TRUE
+         )
+```
+
+Analysis completed without errors.
+
+```{r session, echo = TRUE}
+writeLines(capture.output(sessionInfo()), paste0(out_dir, '/rad21_sessionInfo.txt'))
+```
+
+## References
+1 Lyu X, Rowley MJ, Corces VG. Architectural proteins and pluripotency factors cooperate to orchestrate the transcriptional response of hESCs to temperature stress. Molecular cell. 2018 Sep 20;71(6):940-55.
+
+2 Nicoletti C. Methods for the Differential Analysis of Hi-C Data. InHi-C Data Analysis 2022 (pp. 61-95). Humana, New York, NY.
