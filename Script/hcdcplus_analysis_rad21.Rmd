@@ -27,8 +27,8 @@ library(DESeq2)
 # library(HiTC)
 ```
 
-# Generate Features
-```{r features, eval=TRUE}
+### Generate Features
+```{r features, eval=TRUE, message=FALSE}
 # define output directory path
 out_dir <- "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/Output_rad21"
 
@@ -98,16 +98,24 @@ for(allValidPairsfile_path in allValidPairsfile_paths){
                       )
   }
 
+head(gi_list)  
+```
+
+```{r features, eval=TRUE, message=FALSE}
   # write normalized counts (observed/expected) to a .hic file
   hicdc2hic(gi_list, hicfile = output_path_hic,
           mode='normcounts',gen_ver='hg19')
-  
+```  
+
+```{r features, eval=TRUE, message=FALSE}
   # write results to a text file
   gi_list_write(gi_list, fname = output_path_results)
 }
 
 ```
 
+
+## Finding differential interactions
 Save the index file - union of significants at 50kb
 ``` {r save-index, eval = TRUE}
 
