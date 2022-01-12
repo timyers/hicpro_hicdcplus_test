@@ -43,7 +43,7 @@ vignettes/*.pdf
 .DS_Store
 
 # Output files from R markdown
-Script/*.html
+# Script/*.html
 Script/*.pdf
 
 # HiC-Pro data files
