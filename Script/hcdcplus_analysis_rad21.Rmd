@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This is a HiChIP analysis using the HiCDCPlus `R` package.  The input files used came from the Lyu et al.(1) dataset containing HiChIP data derived from the immuno-precipitation of Rad21 in human embryonic stem cells (hESC) before and after heat shock.
 
-Here use the workflow outlined in Chapter 11: Analysis of HiChIP Data in "Hi-C Data Analysis"[(2)](https://link.springer.com/protocol/10.1007/978-1-0716-1390-0_4).  Specifically, I only performed the initial steps of mapping, filtering and merging of the .fastq from Lyu et al. using HiC-Pro.  Then, using the .allValidPairs output filesare used as input for the HiCDCPlus downstream analysis. 
+Here use the workflow outlined in Chapter 11: Analysis of HiChIP Data in "Hi-C Data Analysis"[(2)](https://link.springer.com/protocol/10.1007/978-1-0716-1390-0_4).  Specifically, I only performed the initial steps of mapping, filtering and merging of the .fastq from Lyu et al. using HiC-Pro.  Then, using the .allValidPairs output files are used as input for the HiCDCPlus downstream analysis below. 
 
 ## Finding significant interactions from HiChIP
 
