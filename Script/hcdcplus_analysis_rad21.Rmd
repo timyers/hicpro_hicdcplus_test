@@ -17,7 +17,7 @@ This is a HiChIP analysis using the HiCDCPlus `R` package.  The input files used
 
 Here use the workflow outlined in Chapter 11: Analysis of HiChIP Data in "Hi-C Data Analysis"[(2)](https://link.springer.com/protocol/10.1007/978-1-0716-1390-0_4).  Specifically, I only performed the initial steps of mapping, filtering and merging of the .fastq from Lyu et al. using HiC-Pro.  Then, using the .allValidPairs output files are used as input for the HiCDCPlus downstream analysis below. 
 
-## Finding significant interactions from HiChIP
+## Finding significant interactions from `HiChIP`
 
 Load required libraries
 ```{r load-lib, eval=TRUE, message=FALSE}
@@ -27,8 +27,8 @@ library(DESeq2)
 # library(HiTC)
 ```
 
-### Generate Features
-```{r features, eval=TRUE, message=FALSE}
+## Generate Features
+```{r features, eval=TRUE, message=TRUE}
 # define output directory path
 out_dir <- "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/Output_rad21"
 
@@ -44,7 +44,7 @@ construct_features(output_path = paste0(out_dir, "/hg19_50kb_dpnii"),
 ```
 
 Generate `gi_list` to store counts and features.
-```{r gen-gi-list, eval = TRUE}
+```{r gen-gi-list, eval=TRUE, message=FALSE}
 
 # add HiCPro .allValidPairs counts
 ### define path to .allValidPairs files ###
@@ -98,19 +98,22 @@ for(allValidPairsfile_path in allValidPairsfile_paths){
                       )
   }
 
-head(gi_list)  
-```
-
-```{r features, eval=TRUE, message=FALSE}
   # write normalized counts (observed/expected) to a .hic file
   hicdc2hic(gi_list, hicfile = output_path_hic,
           mode='normcounts',gen_ver='hg19')
-```  
 
-```{r features, eval=TRUE, message=FALSE}
   # write results to a text file
   gi_list_write(gi_list, fname = output_path_results)
+  
 }
+
+```
+
+
+```{r display-gi_list, eval=TRUE}
+
+# display gi_list for chr 21
+head(gi_list$chr21)
 
 ```
 
@@ -144,6 +147,19 @@ hicdcdiff(input_paths = list(rad21_HS = c(paste0(out_dir, '/Rad21_HS_Rep1.txt.gz
           binsize = 50000,
           diagnostics = TRUE
          )
+```
+
+Display example of `DESeq2` tabular data output
+```{r display-DESeq2-example, eval=TRUE}
+
+# display example output for DESeq2
+deseq2_example <- "/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/Output_rad21/rad21_diff_analysis/diff_resrad21_NToverrad21_HS_chr21.txt.gz"
+head(read.table(gzfile(deseq2_example),
+                          sep="\t",
+                           header = TRUE
+                   )
+     )
+
 ```
 
 Analysis completed without errors.

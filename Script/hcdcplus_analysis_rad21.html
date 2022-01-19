@@ -175,7 +175,7 @@ pre code {
 <div id="description" class="section level2">
 <h2>Description</h2>
 <p>This is a HiChIP analysis using the HiCDCPlus <code>R</code> package. The input files used came from the Lyu et al.(1) dataset containing HiChIP data derived from the immuno-precipitation of Rad21 in human embryonic stem cells (hESC) before and after heat shock.</p>
-<p>Here use the workflow outlined in Chapter 11: Analysis of HiChIP Data in “Hi-C Data Analysis”<a href="https://link.springer.com/protocol/10.1007/978-1-0716-1390-0_4">(2)</a>. Specifically, I only performed the initial steps of mapping, filtering and merging of the .fastq from Lyu et al. using HiC-Pro. Then, using the .allValidPairs output filesare used as input for the HiCDCPlus downstream analysis.</p>
+<p>Here use the workflow outlined in Chapter 11: Analysis of HiChIP Data in “Hi-C Data Analysis”<a href="https://link.springer.com/protocol/10.1007/978-1-0716-1390-0_4">(2)</a>. Specifically, I only performed the initial steps of mapping, filtering and merging of the .fastq from Lyu et al. using HiC-Pro. Then, using the .allValidPairs output files are used as input for the HiCDCPlus downstream analysis below.</p>
 </div>
 <div id="finding-significant-interactions-from-hichip" class="section level2">
 <h2>Finding significant interactions from HiChIP</h2>
@@ -185,8 +185,8 @@ library(BSgenome.Hsapiens.UCSC.hg19)
 library(DESeq2)
 # library(HiTC)</code></pre>
 </div>
-<div id="generate-features" class="section level1">
-<h1>Generate Features</h1>
+<div id="generate-features" class="section level2">
+<h2>Generate Features</h2>
 <pre class="r"><code># define output directory path
 out_dir &lt;- &quot;/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/Output_rad21&quot;
 
@@ -264,26 +264,36 @@ for(allValidPairsfile_path in allValidPairsfile_paths){
   # write normalized counts (observed/expected) to a .hic file
   hicdc2hic(gi_list, hicfile = output_path_hic,
           mode=&#39;normcounts&#39;,gen_ver=&#39;hg19&#39;)
-  
+
   # write results to a text file
   gi_list_write(gi_list, fname = output_path_results)
+  
 }</code></pre>
-<pre><code>## Chromosome chr21 intrachromosomal counts processed.</code></pre>
-<pre><code>## Chromosome chr22 intrachromosomal counts processed.</code></pre>
-<pre><code>## Chromosome chr21 complete.</code></pre>
-<pre><code>## Chromosome chr22 complete.</code></pre>
-<pre><code>## Chromosome chr21 intrachromosomal counts processed.</code></pre>
-<pre><code>## Chromosome chr22 intrachromosomal counts processed.</code></pre>
-<pre><code>## Chromosome chr21 complete.</code></pre>
-<pre><code>## Chromosome chr22 complete.</code></pre>
-<pre><code>## Chromosome chr21 intrachromosomal counts processed.</code></pre>
-<pre><code>## Chromosome chr22 intrachromosomal counts processed.</code></pre>
-<pre><code>## Chromosome chr21 complete.</code></pre>
-<pre><code>## Chromosome chr22 complete.</code></pre>
-<pre><code>## Chromosome chr21 intrachromosomal counts processed.</code></pre>
-<pre><code>## Chromosome chr22 intrachromosomal counts processed.</code></pre>
-<pre><code>## Chromosome chr21 complete.</code></pre>
-<pre><code>## Chromosome chr22 complete.</code></pre>
+<pre class="r"><code># display gi_list for chr 21
+head(gi_list$chr21)</code></pre>
+<pre><code>## GInteractions object with 6 interactions and 8 metadata columns:
+##       seqnames1         ranges1     seqnames2         ranges2 |         D
+##           &lt;Rle&gt;       &lt;IRanges&gt;         &lt;Rle&gt;       &lt;IRanges&gt; | &lt;integer&gt;
+##   [1]     chr21 9400000-9450000 ---     chr21 9400000-9450000 |         0
+##   [2]     chr21 9400000-9450000 ---     chr21 9450000-9500000 |     50000
+##   [3]     chr21 9400000-9450000 ---     chr21 9500000-9550000 |    100000
+##   [4]     chr21 9400000-9450000 ---     chr21 9550000-9600000 |    150000
+##   [5]     chr21 9400000-9450000 ---     chr21 9600000-9650000 |    200000
+##   [6]     chr21 9400000-9450000 ---     chr21 9650000-9700000 |    250000
+##          counts        gc        len        mu      sdev    pvalue    qvalue
+##       &lt;numeric&gt; &lt;numeric&gt;  &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;
+##   [1]        11 -1.162350  -2.033551 74.136228 65.445475  0.909585         1
+##   [2]         1 -1.018867  -1.145882 40.362444 35.887985  0.989132         1
+##   [3]         1 -1.034474  -1.692222 15.212184 13.871782  0.963618         1
+##   [4]         0 -0.962964  -1.812219  7.850317  7.419207  1.000000         1
+##   [5]         0 -0.672519 -11.253015  0.102244  0.332039  1.000000         1
+##   [6]         0 -0.364591  -0.941513  4.399623  4.384400  1.000000         1
+##   -------
+##   regions: 963 ranges and 2 metadata columns
+##   seqinfo: 1 sequence from an unspecified genome; no seqlengths</code></pre>
+</div>
+<div id="finding-differential-interactions" class="section level2">
+<h2>Finding differential interactions</h2>
 <p>Save the index file - union of significants at 50kb</p>
 <pre class="r"><code># change column names
 colnames(indexfile) &lt;-c (&#39;chr&#39;, &#39;startI&#39;, &#39;startJ&#39;)
@@ -332,13 +342,28 @@ hicdcdiff(input_paths = list(rad21_HS = c(paste0(out_dir, &#39;/Rad21_HS_Rep1.tx
 ##  [8] &quot;/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/Output_rad21/rad21_diff_analysis/plotMA_rad21_NToverrad21_HS_chr22.pdf&quot;
 ##  [9] &quot;/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/Output_rad21/rad21_diff_analysis/diff_chr22_PCA.pdf&quot;                   
 ## [10] &quot;/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/Output_rad21/rad21_diff_analysis/dispersionplot.pdf&quot;</code></pre>
+<p>Display example of DESeq2 tabular data output</p>
+<pre class="r"><code># display example output for DESeq2
+deseq2_example &lt;- &quot;/Users/myersta/Box/Rprojects/hichip/hicpro_hicdcplus_test/Output_rad21/rad21_diff_analysis/diff_resrad21_NToverrad21_HS_chr21.txt.gz&quot;
+head(read.table(gzfile(deseq2_example),
+                          sep=&quot;\t&quot;,
+                           header = TRUE
+                   )
+     )</code></pre>
+<pre><code>##     chr   startI   startJ baseMean log2FoldChange  lfcSE    stat pvalue   padj
+## 1 chr21  9800000  9800000  563.823       -0.61862 0.5356 -1.1551 0.2480 0.9902
+## 2 chr21 14300000 14300000    3.270       -0.68958 0.9791 -0.7043 0.4812 0.9902
+## 3 chr21 15600000 16100000   23.280        0.48316 0.6110  0.7908 0.4291 0.9902
+## 4 chr21 15600000 16950000    5.946       -0.09432 0.8050 -0.1172 0.9067 0.9939
+## 5 chr21 15650000 16900000    3.995        0.36609 0.9009  0.4064 0.6845 0.9902
+## 6 chr21 15700000 16900000    3.058       -1.08794 1.0209 -1.0656 0.2866 0.9902</code></pre>
 <p>Analysis completed without errors.</p>
 <pre class="r"><code>writeLines(capture.output(sessionInfo()), paste0(out_dir, &#39;/rad21_sessionInfo.txt&#39;))</code></pre>
+</div>
 <div id="references" class="section level2">
 <h2>References</h2>
 <p>1 Lyu X, Rowley MJ, Corces VG. Architectural proteins and pluripotency factors cooperate to orchestrate the transcriptional response of hESCs to temperature stress. Molecular cell. 2018 Sep 20;71(6):940-55.</p>
 <p>2 Nicoletti C. Methods for the Differential Analysis of Hi-C Data. InHi-C Data Analysis 2022 (pp. 61-95). Humana, New York, NY.</p>
-</div>
 </div>
 
 
